@@ -61,11 +61,11 @@
     </tr>
     <?php
       if(@$_POST['buscar']) {
-        $sql="select id,titulo,autor,fecha from tema where (titulo like '%$_POST[buscar]%' or contenido like '%$_POST[buscar]%') order by id desc";
+        $sql="select id,titulo,autor,fecha, pais, categoria from tema where (titulo like '%$_POST[buscar]%' or contenido like '%$_POST[buscar]%') order by id desc";
       } else if(@$_POST['autor']) {
-        $sql="select id,titulo,autor,fecha from tema where autor='$_POST[autor]' order by id desc";
+        $sql="select id,titulo,autor,fecha, pais, categoria from tema where autor='$_POST[autor]' order by id desc";
       } else {
-        $sql="select id,titulo,autor,fecha from tema order by id desc";
+        $sql="select id,titulo,autor,fecha, pais, categoria from tema order by id desc";
       }
       $con=mysqli_query($conex,$sql);
       while($ver=mysqli_fetch_array($con)) {
@@ -77,13 +77,14 @@
     <td><?php print $ver[2]?></td>
     <td><?php print $ver[3]?></td>
     <td>
-
       <?php
         $sql2="select id from respuesta where id_tema='$ver[0]'";
         $filas=mysqli_query($conex,$sql2);
         print mysqli_num_rows($filas);
       ?>
     </td>
+    <td><?php print $ver[4]?></td>
+    <td><?php print $ver[5]?></td>
     </tr>
     <?php } ?>
   </table>
